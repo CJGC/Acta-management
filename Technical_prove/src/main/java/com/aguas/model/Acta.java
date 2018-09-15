@@ -1,6 +1,7 @@
 package com.aguas.model;
 import java.io.Serializable;
 import java.util.Date;
+import java.util.Objects;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -86,6 +87,36 @@ public class Acta implements Serializable {
     public void setNextMeeting(Date nextMeeting) {
         this.nextMeeting = nextMeeting;
     }
-    
+
+    @Override
+    public int hashCode() {
+        int hash = 3;
+        hash = 23 * hash + Objects.hashCode(this.acta_id);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Acta other = (Acta) obj;
+        
+        if (!Objects.equals(this.acta_id, other.acta_id)) {
+            return false;
+        }
+        return true;
+    }
+
+    @Override
+    public String toString() {
+        return "Acta{" + "acta_id=" + acta_id + '}';
+    }
     
 }
