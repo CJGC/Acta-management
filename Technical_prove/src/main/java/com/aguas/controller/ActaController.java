@@ -5,6 +5,8 @@ import com.aguas.model.Acta;
 import java.io.Serializable;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
+import javax.faces.application.FacesMessage;
+import javax.faces.context.FacesContext;
 import javax.faces.view.ViewScoped;
 import javax.inject.Named;
 
@@ -36,9 +38,14 @@ public class ActaController implements Serializable {
     public void create() {
         try {
             actFacLoc.create(acta);
+            FacesContext.getCurrentInstance().addMessage(null,
+                    new FacesMessage(FacesMessage.SEVERITY_INFO,
+                    "Warning","The acta was created successfully!"));
         }
         catch(Exception e) {
-            e.getMessage();
+            FacesContext.getCurrentInstance().addMessage(null,
+                    new FacesMessage(FacesMessage.SEVERITY_FATAL,
+                    "Warning","There was a problem creating the acta!"));
         }
     }
 }
