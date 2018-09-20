@@ -35,17 +35,21 @@ public class ActaController implements Serializable {
         acta = new Acta();
     }
     
-    public void create() {
+    public String create() {
+        String url = null;
         try {
             actFacLoc.create(acta);
             FacesContext.getCurrentInstance().addMessage(null,
                     new FacesMessage(FacesMessage.SEVERITY_INFO,
-                    "Warning","The acta was created successfully!"));
+                    "Notice","The acta was created successfully!"));
+            url="/index";
         }
         catch(Exception e) {
             FacesContext.getCurrentInstance().addMessage(null,
                     new FacesMessage(FacesMessage.SEVERITY_FATAL,
                     "Warning","There was a problem creating the acta!"));
+            url="/Acta/create";
         }
+        return url;
     }
 }
