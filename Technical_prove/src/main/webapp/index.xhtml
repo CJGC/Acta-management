@@ -9,7 +9,24 @@
         <title>Create Acta</title>
     </h:head>
     <h:body>
-        <p:link value="Create Acta" outcome="Acta/create" />
+        <h:form>
+            <p:menu toggleable="true">
+                <p:submenu label="Acta management" >
+                    <p:menuitem value="Create" 
+                                outcome="Acta/create" 
+                                icon="ui-icon-document" />
+                    <p:menuitem value="List"
+                                icon="ui-icon-triangle-2-n-s" />
+                </p:submenu>
+
+                <p:submenu label="Participants management" >
+                    <p:menuitem value="Create"
+                                icon="ui-icon-person" />
+                    <p:menuitem value="List"
+                                icon="ui-icon-triangle-2-n-s" />
+                </p:submenu>
+            </p:menu>
+        </h:form>
     </h:body>
 </html>
 
