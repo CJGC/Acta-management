@@ -97,9 +97,12 @@
 
             </p:panelGrid>
             <p:commandButton value="Create acta"
-                             actionListener="#{actaController.create()}"
+                             action="#{actaController.create()}"
                              icon="ui-icon-check"
                              update="acta_form,messages"/>
+            <p:button value="Cancel"
+                      outcome="/index"
+                      icon="ui-icon-closethick" />
 
         </h:form>
     </h:body>
