@@ -66,7 +66,10 @@ public class ActaController implements Serializable {
 
     public void remove() {
         Acta tempAct;
-        Integer acta_id=15;
+        Map<String,String> params = FacesContext.getCurrentInstance()
+                .getExternalContext().getRequestParameterMap();
+        Integer acta_id = Integer.parseInt(params.get("acta_id"));
+        
         try {
             tempAct = actFacLoc.find(acta_id);
             actFacLoc.remove(tempAct);
