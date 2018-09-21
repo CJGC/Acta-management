@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <title> List actas </title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    </h:head>
+    <h:body>
+        <h:form id="form">
+            <p:growl id="messages" showDetail="true"/>
+            
+            <p:dataTable var="act" value="#{actaController.findAll()}">
+                <f:facet name="header" >
+                    <p:row> 
+                        <p:column colspan="3"> Available actas </p:column>
+                    </p:row>
+                </f:facet>
+                
+                <p:column headerText="Starting date"
+                          style="text-align:center;">
+                    <h:outputText value="#{act.date}" >
+                        <f:convertDateTime pattern="dd-MM-yyyy"/>
+                    </h:outputText>
+                </p:column>
+                
+                <p:column headerText="Next meeting date"
+                          style="text-align:center;">
+                    <h:outputText value="#{act.nextMeeting}">
+                        <f:convertDateTime pattern="dd-MM-yyyy"/>
+                    </h:outputText>
+                </p:column>
+                
+                <p:column headerText="Actions" style="text-align:center;" >
+                    <p:menuButton value="Action" >
+                        <p:menuitem value="Select participants" 
+                                    action="#{actaController.find()}">
+                            <f:param name="acta_id" value="#{act.acta_id}"/>
+                            <f:param name="url" value="/Acta/selectPart" />
+                        </p:menuitem>
+                            
+                        <p:menuitem value="Edit Acta"
+                                    action="#{actaController.find()}">
+                            <f:param name="acta_id" value="#{act.acta_id}"/>
+                            <f:param name="url" value="/Acta/edit"/>
+                        </p:menuitem>
+                        <p:menuitem value="Delete Acta"
+                                    action="#{actaController.remove()}"
+                                    update="form"/>
+                    </p:menuButton>
+                </p:column>
+                
+            </p:dataTable>
+            
+        </h:form>
+    </h:body>
+</html>
