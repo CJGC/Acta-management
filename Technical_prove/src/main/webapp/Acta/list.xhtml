@@ -48,7 +48,9 @@
                         </p:menuitem>
                         <p:menuitem value="Delete Acta"
                                     action="#{actaController.remove()}"
-                                    update="form"/>
+                                    update="form">
+                            <f:param name="acta_id" value="#{act.acta_id}" />
+                        </p:menuitem>
                     </p:menuButton>
                 </p:column>
                 
