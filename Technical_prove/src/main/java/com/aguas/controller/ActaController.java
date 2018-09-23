@@ -8,6 +8,8 @@ import java.util.Map;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.faces.application.FacesMessage;
+import javax.faces.bean.ManagedProperty;
+import javax.faces.bean.RequestScoped;
 import javax.faces.context.FacesContext;
 import javax.faces.view.ViewScoped;
 import javax.inject.Named;
@@ -18,12 +20,13 @@ import javax.inject.Named;
  */
 @Named
 @ViewScoped
+@RequestScoped
 public class ActaController implements Serializable {
-    
+
     @EJB
     private ActaFacadeLocal actFacLoc;
     private Acta acta;
-    private Acta targetActa;
+    private String acta_id;
 
     public Acta getActa() {
         return acta;
@@ -33,84 +36,102 @@ public class ActaController implements Serializable {
         this.acta = acta;
     }
 
-    public Acta getTargetActa() {
-        return targetActa;
+    public String getActa_id() {
+        return acta_id;
     }
 
-    public void setTargetActa(Acta targetActa) {
-        this.targetActa = targetActa;
+    public void setActa_id(String acta_id) {
+        this.acta_id = acta_id;
     }
-    
+
     @PostConstruct
     public void init() {
         acta = new Acta();
-        targetActa = null;
     }
-    
+
     public String create() {
         String url = "/index";
         try {
             actFacLoc.create(acta);
             FacesContext.getCurrentInstance().addMessage(null,
                     new FacesMessage(FacesMessage.SEVERITY_INFO,
-                    "Notice","The acta was created successfully!"));
-        }
-        catch(Exception e) {
+                            "Notice", "The acta was created successfully!"));
+        } catch (Exception e) {
             FacesContext.getCurrentInstance().addMessage(null,
                     new FacesMessage(FacesMessage.SEVERITY_FATAL,
-                    "Warning","There was a problem creating the acta!"));
-            url="/Acta/create";
+                            "Warning", "There was a problem creating the acta!"));
+            url = "/Acta/create";
         }
         return url;
     }
 
-    public void remove() {
-        Acta tempAct;
-        Map<String,String> params = FacesContext.getCurrentInstance()
-                .getExternalContext().getRequestParameterMap();
-        Integer acta_id = Integer.parseInt(params.get("acta_id"));
-        
+    public String edit() {
+        String url = FacesContext.getCurrentInstance()
+                .getExternalContext().getRequestParameterMap().get("url");
         try {
-            tempAct = actFacLoc.find(acta_id);
+            Acta targetActa = actFacLoc.find(Integer.parseInt(acta_id));
+            targetActa.setAttributes(acta);
+            actFacLoc.edit(targetActa);
+            FacesContext.getCurrentInstance().addMessage(null,
+                    new FacesMessage(FacesMessage.SEVERITY_INFO,
+                            "Notice", "The acta was updated successfully!"));
+        } catch (NumberFormatException e) {
+            e.getMessage();
+        } catch (Exception e) {
+            FacesContext.getCurrentInstance().addMessage(null,
+                    new FacesMessage(FacesMessage.SEVERITY_FATAL,
+                    "Warning", "There was a problem updating the acta!"));
+        }
+        return url;
+    }
+
+    public String remove() {
+        Integer id = Integer.parseInt(FacesContext.getCurrentInstance()
+                .getExternalContext().getRequestParameterMap().get("acta_id"));
+        String url = FacesContext.getCurrentInstance()
+                .getExternalContext().getRequestParameterMap().get("url");
+
+        try {
+            Acta tempAct = actFacLoc.find(id);
             actFacLoc.remove(tempAct);
             FacesContext.getCurrentInstance().addMessage(null,
                     new FacesMessage(FacesMessage.SEVERITY_INFO,
-                    "Notice","The acta was deleted sucessfully!"));
-        }
-        catch(Exception e) {
+                    "Notice", "The acta was deleted sucessfully!"));
+        } catch (Exception e) {
             FacesContext.getCurrentInstance().addMessage(null,
                     new FacesMessage(FacesMessage.SEVERITY_FATAL,
-                    "Warning","There was an error removing the acta!"));
+                    "Warning", "There was an error removing the acta!"));
         }
+        
+        return url;
     }
-    
+
     public List<Acta> findAll() {
         List<Acta> act = null;
         try {
             act = actFacLoc.findAll();
-        }
-        catch(Exception e) {
+        } catch (Exception e) {
             FacesContext.getCurrentInstance().addMessage(null,
-                    new FacesMessage(FacesMessage.SEVERITY_FATAL,
-                    "Warning","There was an error finding actas!"));
+                new FacesMessage(FacesMessage.SEVERITY_FATAL,
+                "Warning", "There was an error finding actas!"));
         }
         return act;
     }
-    
+
     public String find() {
-        Map<String,String> params = FacesContext.getCurrentInstance()
+        Map<String, String> params = FacesContext.getCurrentInstance()
                 .getExternalContext().getRequestParameterMap();
-        Integer acta_id = Integer.parseInt(params.get("acta_id"));
-        
+        Integer id = Integer.parseInt(params.get("acta_id"));
+
         try {
-            targetActa = actFacLoc.find(acta_id);
-        }
-        catch(Exception e) {
+            Acta targetActa = actFacLoc.find(id);
+            acta.setAttributes(targetActa);
+        } catch (Exception e) {
             FacesContext.getCurrentInstance().addMessage(null,
                     new FacesMessage(FacesMessage.SEVERITY_FATAL,
-                    "Warning","There was an error finding the acta!"));
+                            "Warning", "There was an error finding the acta!"));
         }
         return params.get("url");
     }
-    
+
 }
