@@ -15,6 +15,13 @@
     </h:head>
     <h:body>
         <h:form id="acta_form">
+            <p:messages id="messages" 
+                        severity="info,fatal"
+                        showSummary="true"
+                        showDetail="true">
+                <p:autoUpdate />
+            </p:messages>
+            
             <p:panelGrid style="margin-top:20px">
                 <f:facet name="header">
                     <p:row>
@@ -97,7 +104,8 @@
             </p:panelGrid>
             <p:commandButton value="Update acta"
                              action="#{actaController.edit()}"
-                             icon="ui-icon-check">
+                             icon="ui-icon-check"
+                             update="acta_form,messages">
                 <f:param name="url" value="/Acta/list" />
             </p:commandButton>
             <p:button value="Cancel"
