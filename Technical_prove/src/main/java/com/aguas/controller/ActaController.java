@@ -131,21 +131,5 @@ public class ActaController implements Serializable {
         }
         return act;
     }
-
-    public String find() {
-        Map<String, String> params = FacesContext.getCurrentInstance()
-                .getExternalContext().getRequestParameterMap();
-        Integer id = Integer.parseInt(params.get("acta_id"));
-
-        try {
-            Acta targetActa = actFacLoc.find(id);
-            acta.setAttributes(targetActa);
-        } catch (Exception e) {
-            FacesContext.getCurrentInstance().addMessage(null,
-                    new FacesMessage(FacesMessage.SEVERITY_FATAL,
-                            "Warning", "There was an error finding the acta!"));
-        }
-        return params.get("url");
-    }
-
+    
 }
