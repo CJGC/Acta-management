@@ -10,6 +10,7 @@
     </h:head>
     <h:body>
         <h:form id="form">
+            
             <p:growl id="messages" showDetail="true"/>
             
             <p:dataTable var="act" value="#{actaController.findAll()}">
@@ -34,22 +35,22 @@
                 </p:column>
                 
                 <p:column headerText="Actions" style="text-align:center;" >
-                    <p:menuButton value="Action" >
-                        <p:menuitem value="Select participants" 
-                                    action="#{actaController.find()}">
-                            <f:param name="acta_id" value="#{act.acta_id}"/>
-                            <f:param name="url" value="/Acta/selectPart" />
-                        </p:menuitem>
-                            
+                    
+                    <p:menuButton value="Actions">
                         <p:menuitem value="Edit Acta"
-                                    action="#{actaController.find()}">
-                            <f:param name="acta_id" value="#{act.acta_id}"/>
-                            <f:param name="url" value="/Acta/edit"/>
-                        </p:menuitem>
+                                    includeViewParams="true"
+                                    outcome="/Acta/edit?acta_id=#{act.acta_id}"
+                                    />
+                        <p:menuitem value="Select participants"
+                               includeViewParams="true"
+                               outcome="/Acta/selectPart?acta_id=#{act.acta_id}"
+                               />
                         <p:menuitem value="Delete Acta"
                                     action="#{actaController.remove()}"
-                                    update="form">
+                                    update="form"
+                                    >
                             <f:param name="acta_id" value="#{act.acta_id}" />
+                            <f:param name="url" value="/Acta/list" />
                         </p:menuitem>
                     </p:menuButton>
                 </p:column>
