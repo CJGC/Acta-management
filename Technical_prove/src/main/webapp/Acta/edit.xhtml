@@ -1,0 +1,111 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <title>Edit Acta</title>
+        <f:metadata>
+            <f:viewParam name="acta_id" value="#{actaController.acta_id}"/>
+            <f:viewAction action="preRenderView" immediate="" />
+        </f:metadata>
+    </h:head>
+    <h:body>
+        <h:form id="acta_form">
+            <p:panelGrid style="margin-top:20px">
+                <f:facet name="header">
+                    <p:row>
+                        <p:column colspan="3"> Acta formulary </p:column>
+                    </p:row>
+                </f:facet>
+
+                <p:row>
+                    <p:column style="text-align:center;">
+                        <p:outputLabel value="Select a date" for="date_field" />
+                        <br/>
+                        <p:calendar id="date_field"
+                                    value="#{actaController.acta.date}"
+                                    pagedate="#{actaController.acta.date}"
+                                    required="true"
+                                    requiredMessage="Select a date."/>
+                        <p:watermark for="date_field"
+                                    value="Select the date"/>
+                    </p:column>
+
+                    <p:column style="text-align:center;">
+                        <p:outputLabel value="Select date for the next 
+                                       meeting" />
+                        <br/>
+                        <p:calendar id="next_meeting_field"
+                                    value="#{actaController.acta.nextMeeting}"
+                                    required="false"/>
+                        <p:watermark for="next_meeting_field"
+                                    value="Select the next meeting date"/>
+                    </p:column>
+
+                    <p:column style="text-align:center;">
+                        <p:outputLabel value="Type place" for="place_field" />
+                        <br/>
+                        <p:inputText id="place_field"
+                                    value="#{actaController.acta.place}"
+                                    required="true" 
+                                    requiredMessage="Type a place."
+                                    maxlength="200"
+                                    size="34"/>
+                        <p:watermark for="place_field" 
+                                    value="Type place"/>
+                    </p:column>
+                </p:row>
+
+                <p:row>
+                    <p:column colspan="3" style="text-align:center;">
+                        <p:outputLabel value="Type the project name" 
+                                       for="project_field"/>
+                        <br/>
+                        <p:inputText id="project_field"
+                                    value="#{actaController.acta.project}"
+                                    required="true"
+                                    requiredMessage="Type the project title"
+                                    maxlength="200"
+                                    size="95"/>
+                        <p:watermark for="project_field" 
+                                     value="Enter the project title"/>
+                    </p:column>
+                </p:row>
+
+                <p:row>
+                    <p:column colspan="3" style="text-align:center;">
+                        <p:outputLabel value="Type the meeting content" 
+                                       for="topic_field"/>
+                        <br/>
+                        <p:inputTextarea id="topic_field"
+                                         value="#{actaController.acta.topics}"
+                                         rows="10" cols="100"
+                                         required="true"
+                                         requiredMessage="Type the meeting 
+                                         content"
+                                         maxlength="2000"
+                                         autoResize="false"/>
+                        <p:watermark for="topic_field" 
+                                     value="Enter the meeting content here..."/>
+                    </p:column>
+                </p:row>
+
+            </p:panelGrid>
+            <p:commandButton value="Update acta"
+                             action="#{actaController.edit()}"
+                             icon="ui-icon-check">
+                <f:param name="url" value="/Acta/list" />
+            </p:commandButton>
+            <p:button value="Cancel"
+                      outcome="/Acta/list"
+                      icon="ui-icon-closethick" />
+
+        </h:form>
+    </h:body>
+</html>
+
+
