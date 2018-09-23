@@ -10,7 +10,11 @@
     </h:head>
     <h:body>
         <h:form id="form">
-            
+
+            <p:button value="Back"
+                      outcome="/index"
+                      icon="ui-icon-circle-arrow-w"/>
+            <br/>
             <p:growl id="messages" showDetail="true"/>
             
             <p:dataTable var="act" value="#{actaController.findAll()}">
@@ -37,14 +41,18 @@
                 <p:column headerText="Actions" style="text-align:center;" >
                     
                     <p:menuButton value="Actions">
-                        <p:menuitem value="Edit Acta"
-                                    includeViewParams="true"
-                                    outcome="/Acta/edit?acta_id=#{act.acta_id}"
-                                    />
                         <p:menuitem value="Select participants"
                                includeViewParams="true"
                                outcome="/Acta/selectPart?acta_id=#{act.acta_id}"
                                />
+                        <p:menuitem value="Edit Acta"
+                                    includeViewParams="true"
+                                    outcome="/Acta/edit?acta_id=#{act.acta_id}"
+                                    />
+                        <p:menuitem value="Show Acta"
+                                    includeViewParams="true"
+                                    outcome="/Acta/show?acta_id=#{act.acta_id}"
+                                    />
                         <p:menuitem value="Delete Acta"
                                     action="#{actaController.remove()}"
                                     update="form"
