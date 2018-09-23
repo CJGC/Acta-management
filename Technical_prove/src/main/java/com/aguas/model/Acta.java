@@ -119,4 +119,11 @@ public class Acta implements Serializable {
         return "Acta{" + "acta_id=" + acta_id + '}';
     }
     
+    public void setAttributes(Acta acta) {        
+        date = acta.getDate();
+        nextMeeting = acta.getNextMeeting();
+        place = acta.getPlace();
+        project = acta.getProject();
+        topics = acta.getTopics();
+    }
 }
