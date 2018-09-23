@@ -1,0 +1,107 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <title>Edit Participant</title>
+        <f:metadata>
+            <f:viewParam name="part_id"
+                         value="#{participantController.participant_id}"/>
+            <f:viewAction action="preRenderView" immediate="" />
+        </f:metadata>
+    </h:head>
+    <h:body>
+        <h:form id="part_form">
+            <p:messages id="messages" 
+                        severity="info,fatal"
+                        showSummary="true"
+                        showDetail="true">
+                <p:autoUpdate />
+            </p:messages>
+              
+            <p:panelGrid style="margin-top:20px">
+                <f:facet name="header">
+                    <p:row>
+                        <p:column colspan="3"> Participant formulary </p:column>
+                    </p:row>
+                </f:facet>
+
+                <p:row>
+                    <p:column style="text-align:center;">
+                        <p:outputLabel value="CC" for="cc_field" />
+                        <br/>
+                        <p:inputText id="cc_field"
+                                value="#{participantController.participant.cc}"
+                                required="true"/>
+                        <p:watermark for="cc_field"
+                                value="Type cc"/>
+                    </p:column>
+
+                    <p:column style="text-align:center;">
+                        <p:outputLabel value="Type name" for="name_field"/>
+                        <br/>
+                        <p:inputText id="name_field"
+                                value="#{participantController.participant.name}"
+                                required="true"
+                                maxlength="200"/>
+                        <p:watermark for="name_field"
+                                value="Type name"/>
+                    </p:column>
+
+                    <p:column style="text-align:center;">
+                        <p:outputLabel value="Type surname" for="surname_field" />
+                        <br/>
+                        <p:inputText id="surname_field"
+                             value="#{participantController.participant.surname}"
+                             required="true" 
+                             maxlength="200"/>
+                        <p:watermark for="surname_field" 
+                                value="Type surname"/>
+                    </p:column>
+                </p:row>
+
+                <p:row>
+                    <p:column style="text-align:center;">
+                        <p:outputLabel value="Type email" 
+                                       for="email_field"/>
+                        <br/>
+                        <p:inputText id="email_field"
+                              value="#{participantController.participant.email}"
+                              required="true"
+                              maxlength="200"/>
+                        <p:watermark for="email_field" 
+                                value="Type email"/>
+                    </p:column>
+                    
+                    <p:column colspan="2" style="text-align:center;">
+                        <p:outputLabel value="Type profession" 
+                                       for="profe_field"/>
+                        <br/>
+                        <p:inputText id="profe_field"
+                         value="#{participantController.participant.profession}"
+                         required="true"
+                         maxlength="200"/>
+                        <p:watermark for="profe_field" 
+                            value="Type profession"/>
+                    </p:column>
+                </p:row>
+
+            </p:panelGrid>
+            <p:commandButton value="Update participant"
+                             action="#{participantController.edit()}"
+                             icon="ui-icon-check"
+                             update="part_form,messages">
+                <f:param name="url" value="/Participant/list"/>
+            </p:commandButton>
+            <p:button value="Cancel"
+                      outcome="/Participant/list"
+                      icon="ui-icon-closethick" />
+
+        </h:form>
+    </h:body>
+</html>
+
