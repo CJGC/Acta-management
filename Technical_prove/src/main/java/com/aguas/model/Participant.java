@@ -114,4 +114,11 @@ public class Participant implements Serializable  {
         return "Participant{" + "participant_id=" + participant_id + '}';
     }
     
+    public void setAttributes(Participant participant) {        
+        cc = participant.getCc();
+        name = participant.getName();
+        surname = participant.getSurname();
+        email = participant.getEmail();
+        profession = participant.getProfession();
+    }
 }
