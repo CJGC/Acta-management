@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <title> Show acta </title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+        <f:metadata>
+            <f:viewParam name="acta_id" value="#{actaController.acta_id}"/>
+            <f:viewAction action="preRenderView" immediate="" />
+        </f:metadata>
+    </h:head>
+    <h:body>
+        <h:form id="form">
+            <p:button value="Back" 
+                      outcome="/Acta/list" 
+                      icon="ui-icon-circle-arrow-w"/>
+            
+            <p:dataGrid var="act" value="#{actaController.show()}" layout="grid">
+                <f:param name="acta_id" value="#{actaController.acta_id}"/>
+
+                <f:facet name="header"> Acta details </f:facet>
+                <p:outputPanel>
+                    <h:panelGrid columns="2" cellpadding="10" width="400">
+                        <h:outputText value="Date:" style="font-weight:bold;"/>
+                        <h:outputText value="#{act.date}" >
+                            <f:convertDateTime pattern="dd-MM-yyyy"/>
+                        </h:outputText>
+                        
+                        <h:outputText value="Next meeting date:"
+                                      style="font-weight: bold;"/>
+                        <h:outputText value="#{act.date}" >
+                            <f:convertDateTime pattern="dd-MM-yyyy"/>
+                        </h:outputText>
+                        
+                        <h:outputText value="Place:"
+                                      style="font-weight: bold;"/>
+                        <h:outputText value="#{act.place}" />
+                        
+                        <h:outputText value="Project:" 
+                                      style="font-weight: bold;"/>
+                        <h:outputText value="#{act.project}" />
+                        
+                        <h:outputText value="Content:"
+                                      style="font-weight: bold;"/>
+                        <h:outputText value="#{act.topics}" />
+                    </h:panelGrid>
+                </p:outputPanel>
+                
+            </p:dataGrid>
+
+        </h:form>
+    </h:body>
+</html>
