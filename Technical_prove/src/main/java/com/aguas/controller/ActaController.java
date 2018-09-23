@@ -4,7 +4,6 @@ import com.aguas.ejb.ActaFacadeLocal;
 import com.aguas.model.Acta;
 import java.io.Serializable;
 import java.util.List;
-import java.util.Map;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.faces.application.FacesMessage;
