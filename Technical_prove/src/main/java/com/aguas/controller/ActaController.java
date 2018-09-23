@@ -8,7 +8,6 @@ import java.util.Map;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.faces.application.FacesMessage;
-import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.RequestScoped;
 import javax.faces.context.FacesContext;
 import javax.faces.view.ViewScoped;
@@ -106,6 +105,21 @@ public class ActaController implements Serializable {
         return url;
     }
 
+    public Acta show() {
+        Acta tempAct = null;
+        Integer id = Integer.parseInt(FacesContext.getCurrentInstance()
+                .getExternalContext().getRequestParameterMap().get("acta_id"));
+        try {
+            tempAct = actFacLoc.find(id);
+        }
+        catch(Exception e) {
+            FacesContext.getCurrentInstance().addMessage(null,
+                    new FacesMessage(FacesMessage.SEVERITY_FATAL,
+                    "Warning", "There was an error showing the acta!"));
+        }
+        return tempAct;
+    }
+    
     public List<Acta> findAll() {
         List<Acta> act = null;
         try {
