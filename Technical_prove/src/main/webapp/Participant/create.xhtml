@@ -29,9 +29,10 @@
                     <p:column style="text-align:center;">
                         <p:outputLabel value="CC" for="cc_field" />
                         <br/>
-                        <p:inputText id="cc_field"
+                        <p:inputNumber id="cc_field"
                                 value="#{participantController.participant.cc}"
-                                required="true"/>
+                                required="true"
+                                decimalPlaces="0"/>
                         <p:watermark for="cc_field"
                                 value="Type cc"/>
                     </p:column>
